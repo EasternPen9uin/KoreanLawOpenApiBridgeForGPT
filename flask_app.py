@@ -21,8 +21,8 @@ application.config.update(
 # JWT 확장 모듈을 flask 어플리케이션에 등록
 jwt = JWTManager(application)
 
-# (디버그) jwt 인증 해제
-jwt_required = empty_decorator
+# (디버그) 주석 해제시 jwt 인증을 해제함
+#jwt_required = empty_decorator
 
 @application.route("/")
 @jwt_required()

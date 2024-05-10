@@ -69,8 +69,10 @@ def parseLegalXML(xml_string):
     sio.close()
     return ret
 
-
 def empty_decorator():
+    """
+        디버그용 빈 데코레이터
+    """
     from functools import wraps
     def decorator(f):
         @wraps(f)
