@@ -68,3 +68,13 @@ def parseLegalXML(xml_string):
     ret = sio.getvalue()
     sio.close()
     return ret
+
+
+def empty_decorator():
+    from functools import wraps
+    def decorator(f):
+        @wraps(f)
+        def decorated_function(*args, **kwargs):
+            return f(*args, **kwargs)
+        return decorated_function
+    return decorator

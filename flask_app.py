@@ -14,12 +14,15 @@ if OC == "test" or OC == None:
 
 # 토큰 생성에 사용될 Secret Key를 flask 환경 변수에 등록
 application.config.update(
-	DEBUG = True,
+	DEBUG = False,
 	JWT_SECRET_KEY = os.environ.get("JWT_SECRET_KEY")
 )
 
 # JWT 확장 모듈을 flask 어플리케이션에 등록
 jwt = JWTManager(application)
+
+# (디버그) jwt 인증 해제
+jwt_required = empty_decorator
 
 @application.route("/")
 @jwt_required()
