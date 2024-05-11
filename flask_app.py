@@ -5,6 +5,7 @@ from utils import *
 import os
 
 application = Flask(import_name = __name__)
+application.json.sort_keys = False
 
 # env파일에서 OC 획득
 OC = os.environ.get("OC")
@@ -49,22 +50,22 @@ def getLawDetail():
     법률 내용 확인
     """
     # 쿼리에서 idx값을 가져옴 (ResponseTooLarge방지용)
-    idx = 1
+    idx = 0
     if request.args.get('idx') is not None:
         idx = int(request.args.get('idx'))
     
     # XML형식으로 반환할 경우 ResponseTooLarge오류가 발생할 수 있음. 
     # 따라서 형식 제거 후 반환
-    content = parseLegalXML(apiCommonPart(request, OC, "law", "lawService"))
-    CONTENT_MAX_LENGTH = 50000
-    contentList = [content[i:i+CONTENT_MAX_LENGTH] for i in range(0, len(content), CONTENT_MAX_LENGTH)]
-    
-    totalpage = len(content)//CONTENT_MAX_LENGTH + 1
-    return jsonify({
-        "totalidx":totalpage,
-        "nowidx":idx,
-        "content":contentList[idx-1]
-    })
+    basic_info_dict, article_list = parseLegalXML(apiCommonPart(request, OC, "law", "lawService"))
+    CONTENT_MAX_LENGTH = 50
+    ret_dict = basic_info_dict
+    ret_dict["totalidx"] = len(article_list)//CONTENT_MAX_LENGTH
+    ret_dict["idx"] = idx
+    ret_list = article_list[(idx)*CONTENT_MAX_LENGTH:((idx)*CONTENT_MAX_LENGTH)+CONTENT_MAX_LENGTH]
+    for t in ret_list:
+        key, txt = t
+        ret_dict[key] = txt
+    return jsonify(ret_dict)
 
 @application.route("/searchPrecedent")
 @application.route("/searchPrecedentByCaseNumber") #사건번호로 검색
