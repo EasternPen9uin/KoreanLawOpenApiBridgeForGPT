@@ -10,12 +10,15 @@ application.json.sort_keys = False
 # env파일에서 OC 획득
 OC = os.environ.get("OC")
 JWT_SECRET_KEY = os.environ.get("JWT_SECRET_KEY")
+if JWT_SECRET_KEY is None:
+    # JWT_SECRET_KEY가 설정되지 않았을 경우
+    makeNewJWTSecret()
+    load_dotenv()
 
 # 제대로 설정되지 않았을 경우 경고용 메시지 출력
 if OC == "test" or OC == None:
     print(".env파일 내 OC가 제대로 설정되지 않았습니다!\nThe OC in the .env file is not properly set up!")
-if JWT_SECRET_KEY is None:
-    print(".env파일 내 JWT_SECRET_KEY가 제대로 설정되지 않았습니다!\nJWT_SECRET_KEY in the .env file is not properly set up!")
+
 
 # 토큰 생성에 사용될 Secret Key를 flask 환경 변수에 등록
 application.config.update(
