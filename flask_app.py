@@ -14,6 +14,7 @@ if JWT_SECRET_KEY is None:
     # JWT_SECRET_KEY가 설정되지 않았을 경우
     makeNewJWTSecret()
     load_dotenv()
+    JWT_SECRET_KEY = os.environ.get("JWT_SECRET_KEY")
 
 # 제대로 설정되지 않았을 경우 경고용 메시지 출력
 if OC == "test" or OC == None:
