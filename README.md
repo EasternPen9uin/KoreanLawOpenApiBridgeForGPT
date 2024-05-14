@@ -14,8 +14,10 @@
   pip install -r requirements.txt
   ```
 
+* 리포지토리 내 ActionScheme.json 파일은 Action의 Scheme입니다. 
+
 ## Run
-* API 키 발급 : Action 사용시 인증 유형을 'API 키', 'Bearer'로 설정한 후 아래 명령어 실행 후 나오는 문자열을 복사하세요.
+* API 키 발급 : Action 사용시 인증 유형을 'API 키', 'Bearer'로 설정한 후 아래 명령어 실행 후 나오는 문자열을 API키로 사용하세요.
   ```bash
   py get_api_key.py
   ```

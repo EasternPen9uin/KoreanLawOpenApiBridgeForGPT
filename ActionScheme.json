@@ -1,0 +1,177 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+      "title": "Statutory Information API",
+      "description": "Use the following actions as appropriate depending on the situation.",
+      "version": "v1.0.0"
+    },
+    "servers": [
+      {
+        "url": "https://여기에_백엔드_주소를_입력해주세요/"
+      }
+    ],
+    "paths": {
+      "/searchLaws": {
+        "get": {
+          "description": "API to search for law provisions. Use this action first to get MST value of getLawDetail.",
+          "operationId": "searchLaws",
+          "parameters": [
+            {
+                "in": "query",
+                "name": "display",
+                "description": "Number of results retrieved. ",
+                "schema": {
+                    "type": "integer",
+                    "minimum" : 1,
+                    "maximum" : 100
+                }
+            },
+            {
+                "in": "query",
+                "name": "search",
+                "required": true,
+                "description": "Search scope (1: Search for name (default) / 2: Search for text)",
+                "schema": {
+                    "type": "string",
+                    "enum" : ["1", "2"]
+                }
+            },
+            {
+                "in": "query",
+                "name": "query",
+                "required": true,
+                "description": "Text you want to search for",
+                "schema": {
+                    "type": "string"
+                }
+            }
+          ],
+          "deprecated": false
+        }
+      },
+      "/getLawDetail": {
+        "get": {
+          "description": "API to view the contents of law provisions. PLEASE use action 'searchLaws' first before calling this action,",
+          "operationId": "getLawDetail",
+          "parameters": [ 
+            {
+                "in": "query",
+                "name": "MST",
+                "required": true,
+                "description": "Master ID of law provisions. ONLY Use the value of the law in the tag '법령일련번호'", 
+                "schema": {
+                    "type": "string"
+                }
+            },
+            {
+                "in": "query",
+                "name": "idx",
+                "required": true,
+                "description": "The index value of the content used if the content is too long. 50 legal provisions per idx are displayed separately. The formula is floor((the article number you are looking for)//50).",
+                "schema": {
+                    "type": "integer",
+                    "minimum" : 1
+                }
+            }
+          ],
+          "deprecated": false
+        }
+      }, 
+      "/searchPrecedent": {
+        "get": {
+          "description": "API to search for legal precedents by name or content, NOT by case number", 
+          "operationId": "searchPrecedent",
+          "parameters": [
+            {
+                "in": "query",
+                "name": "display",
+                "description": "Number of results retrieved",
+                "schema": {
+                    "type": "integer",
+                    "minimum" : 1,
+                    "maximum" : 100
+                }
+            },
+            {
+                "in": "query",
+                "name": "search",
+                "required": true,
+                "description": "Search scope (1: Search for name (default) / 2: Search for text)",
+                "schema": {
+                    "type": "string",
+                    "enum" : ["1", "2"]
+                }
+            },
+            {
+                "in": "query",
+                "name": "query",
+                "required": true,
+                "description": "Text you want to search for",
+                "schema": {
+                    "type": "string"
+                }
+            }
+          ],
+          "deprecated": false
+        }
+      },
+      "/searchPrecedentByCaseNumber": {
+        "get": {
+          "description": "API to search for legal precedents by case number", 
+          "operationId": "searchPrecedentByCaseNumber",
+          "parameters": [
+            {
+                "in": "query",
+                "name": "nb",
+                "required": true,
+                "description": "Precedent Case Number (사건번호). (ex. 2010느합21)",
+                "schema": {
+                    "type": "string"
+                }
+            }
+          ],
+          "deprecated": false
+        }
+      },
+      "/getPrecedentDetail": {
+        "get": {
+          "description": "API to view the contents of law provisions",
+          "operationId": "getPrecedentDetail",
+          "parameters": [ 
+            {
+                "in": "query",
+                "name": "ID",
+                "required": true,
+                "description": "Serial number of precedents. Use the ID value of the precedents in the tag '판례상세링크'",
+                "schema": {
+                    "type": "string"
+                }
+            }
+          ],
+          "deprecated": false
+        }
+      },
+      "/getLegalTerm": {
+        "get": {
+            "description": "API to search definition of terms of law",
+            "operationId": "getLegalTerm",
+            "parameters": [ 
+                {
+                    "in": "query",
+                    "name": "query",
+                    "required": true,
+                    "description": "The name of the legal term you want to watch about in detail.",
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "deprecated": false
+          }
+      }
+    },
+    "components": {
+        "schemas": {
+        }
+    }
+}
