@@ -31,7 +31,7 @@ application.config.update(
 jwt = JWTManager(application)
 
 # (디버그) 주석 해제시 jwt 인증을 해제함
-jwt_required = empty_decorator
+#jwt_required = empty_decorator
 
 # API 인증 확인용
 @application.route("/")
