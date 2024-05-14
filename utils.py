@@ -81,5 +81,5 @@ def empty_decorator():
 def makeNewJWTSecret():
     import secrets
     new_jwt_secret_key = secrets.token_bytes(32).hex()
-    with open(".env", 'a') as env:
+    with open(".env", 'a', encoding="utf8") as env:
         env.write(f"\n# Bearer Token의 Secret Key로 활용할 문자열\nJWT_SECRET_KEY={new_jwt_secret_key}")
